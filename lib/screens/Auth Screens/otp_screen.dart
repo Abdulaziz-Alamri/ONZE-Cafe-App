@@ -135,6 +135,7 @@ class OtpScreen extends StatelessWidget {
                             GestureDetector(
                               onTap: () {
                                 // Resend OTP ??
+                                bloc.add(ResendOtpEvent(email: email));
                               },
                               child: Text(
                                 'Resend OTP',

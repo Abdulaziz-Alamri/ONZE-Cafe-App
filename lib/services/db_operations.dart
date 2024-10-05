@@ -20,6 +20,20 @@ Future createAccount({required String email, required String password}) async {
   }
 }
 
+// Resend otp
+Future resendOtp({required String email}) async {
+  try {
+    final authRes = await supabase.auth.resend(
+      type: OtpType.signup,
+      email: email,
+    );
+
+    return authRes;
+  } catch (error) {
+    return Future.error(error);
+  }
+}
+
 Future login({required String email, required String password}) async {
   try {
     final authRes = await supabase.auth
@@ -110,8 +124,7 @@ saveOrder({required double totalPrice, required int orderId}) async {
   }
   await supabase
       .from('orders')
-      .update({'total_price': totalPrice})
-      .eq('order_id', orderId);
+      .update({'total_price': totalPrice}).eq('order_id', orderId);
 }
 
 Future<List<Map<String, dynamic>>> fetchAllOrders() async {
