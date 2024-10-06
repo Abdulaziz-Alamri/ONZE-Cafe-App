@@ -26,12 +26,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
-  FutureOr<void> resenOtp(ResendOtpEvent event, Emitter<AuthState> emit) async {
+   FutureOr<void> resenOtp(ResendOtpEvent event, Emitter<AuthState> emit) async {
     try {
       emit(LoadingState());
       await resendOtp(email: event.email);
 
-      emit(SuccessfulRegisterState());
+      emit(SuccessfulResentOTPState());
     } catch (error) {
       emit(ErrorState(message: "Failed to Register, try again"));
     }

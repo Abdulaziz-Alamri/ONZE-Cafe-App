@@ -1,9 +1,9 @@
 import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:onze_cafe/data_layer/data_layer.dart';
 import 'package:onze_cafe/models/order_item_model.dart';
 import 'package:onze_cafe/screens/Home%20Screen/home_bloc/home_bloc.dart';
-import 'package:onze_cafe/screens/Home%20Screen/home_screen.dart';
 import 'package:onze_cafe/services/setup.dart';
 
 class CoffeeCard extends StatelessWidget {
@@ -14,6 +14,7 @@ class CoffeeCard extends StatelessWidget {
   final int rating;
   final int itemId;
   final HomeBloc bloc;
+  final String itemType;
 
   const CoffeeCard(
       {super.key,
@@ -23,14 +24,15 @@ class CoffeeCard extends StatelessWidget {
       this.imageUrl,
       required this.rating,
       required this.itemId,
-      required this.bloc});
+      required this.bloc,
+      required this.itemType});
 
   Widget buildRatingStars(int rating) {
     List<Widget> stars = [];
     for (int i = 1; i <= 5; i++) {
       stars.add(Icon(
         i <= rating ? Icons.star : Icons.star_border,
-        color: Colors.yellow,
+        color: const Color.fromARGB(255, 235, 215, 39),
         size: size.width * 0.04,
       ));
     }
@@ -43,12 +45,11 @@ class CoffeeCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: size.width * 0.28,
-      height: size.height * 0.18,
+      width: size.width * 0.2,
+      height: size.height * 0.1,
       decoration: BoxDecoration(
         color: const Color(0xffFFFFFF),
         borderRadius: BorderRadius.circular(15),
-        border: Border.all(color: const Color(0xff87B1C5)),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.1),
@@ -131,7 +132,8 @@ class CoffeeCard extends StatelessWidget {
                       );
                   log('Added item to cart: $name');
                   bloc.add(UpdateCartCountEvent(
-                      count: locator.get<DataLayer>().cart.items.length));
+                      count: locator.get<DataLayer>().cart.items.length,
+                      itemType: itemType));
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text('$name added to cart'),

@@ -20,7 +20,6 @@ Future createAccount({required String email, required String password}) async {
   }
 }
 
-// Resend otp
 Future resendOtp({required String email}) async {
   try {
     final authRes = await supabase.auth.resend(

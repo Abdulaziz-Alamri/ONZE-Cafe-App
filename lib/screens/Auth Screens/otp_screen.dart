@@ -61,17 +61,20 @@ class OtpScreen extends StatelessWidget {
                 ScaffoldMessenger.of(context)
                     .showSnackBar(SnackBar(content: Text(state.message)));
               }
+
+              if(state is SuccessfulResentOTPState){
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(const SnackBar(content: Text('OTP Resent')));
+              }
             },
             child: Scaffold(
               extendBodyBehindAppBar: true,
               body: SingleChildScrollView(
-                // استخدام SingleChildScrollView للسماح بالتمرير
                 child: ConstrainedBox(
                   constraints: BoxConstraints(
                     minHeight: MediaQuery.of(context).size.height,
                   ),
                   child: IntrinsicHeight(
-                    // يضمن عدم قص المحتوى
                     child: Stack(
                       children: [
                         Positioned.fill(
@@ -83,7 +86,7 @@ class OtpScreen extends StatelessWidget {
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            SizedBox(
+                            const SizedBox(
                               height: 150,
                             ),
                             Text(
@@ -134,7 +137,6 @@ class OtpScreen extends StatelessWidget {
                             SizedBox(height: 5.h),
                             GestureDetector(
                               onTap: () {
-                                // Resend OTP ??
                                 bloc.add(ResendOtpEvent(email: email));
                               },
                               child: Text(

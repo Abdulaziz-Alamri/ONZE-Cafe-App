@@ -51,7 +51,7 @@ class RegisterScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         height: 200,
                       ),
                       const Text('Name',
@@ -93,7 +93,7 @@ class RegisterScreen extends StatelessWidget {
                       const SizedBox(
                         height: 12,
                       ),
-                      const Text('email',
+                      const Text('Email',
                           style: TextStyle(
                               fontSize: 14.33,
                               color: Color(0xffE6E2E0),
@@ -187,7 +187,7 @@ class RegisterScreen extends StatelessWidget {
                         ),
                         child: TextField(
                           controller: phoneController,
-                          keyboardType: TextInputType.numberWithOptions(),
+                          keyboardType: const TextInputType.numberWithOptions(),
                           cursorColor: const Color(0xffE6E2E0),
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
@@ -215,42 +215,44 @@ class RegisterScreen extends StatelessWidget {
                       const SizedBox(
                         height: 24,
                       ),
-                      Container(
-                          height: 50,
-                          width: 314,
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: const Color(0xffE6E2E0), width: 1),
-                              borderRadius: BorderRadius.circular(15)),
-                          child: Material(
-                            type: MaterialType.transparency,
-                            child: Center(
-                              child: SizedBox.expand(
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    bloc.add(RegisterEvent(
-                                        email: emailController.text,
-                                        password: passwordController.text));
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    shadowColor: Colors.transparent,
-                                    padding: EdgeInsets.zero,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15),
+                      Center(
+                        child: Container(
+                            height: 50,
+                            width: 350,
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                    color: const Color(0xffE6E2E0), width: 1),
+                                borderRadius: BorderRadius.circular(5)),
+                            child: Material(
+                              type: MaterialType.transparency,
+                              child: Center(
+                                child: SizedBox.expand(
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      bloc.add(RegisterEvent(
+                                          email: emailController.text,
+                                          password: passwordController.text));
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      shadowColor: Colors.transparent,
+                                      padding: EdgeInsets.zero,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(5),
+                                      ),
                                     ),
-                                  ),
-                                  child: const Text(
-                                    'Register',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        color: Color(0xff3d6b7d),
-                                        fontSize: 17.92,
-                                        fontWeight: FontWeight.bold),
+                                    child: const Text(
+                                      'Register',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          color: Color(0xff3d6b7d),
+                                          fontSize: 17.92,
+                                          fontWeight: FontWeight.bold),
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          )),
+                            )),
+                      ),
                       const SizedBox(
                         height: 10,
                       ),
@@ -269,7 +271,8 @@ class RegisterScreen extends StatelessWidget {
                               TextSpan(
                                   text: 'Login',
                                   style: TextStyle(
-                                      color: Color.fromARGB(255, 133, 60, 52))),
+                                      color:
+                                          Color.fromARGB(255, 191, 115, 106))),
                             ]))),
                       )
                     ],
