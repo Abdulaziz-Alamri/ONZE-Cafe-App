@@ -179,7 +179,7 @@ class _CartScreenState extends State<CartScreen> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 20,
                         ),
                         ElevatedButton(

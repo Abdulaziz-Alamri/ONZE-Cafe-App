@@ -76,6 +76,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       amount: (totalPrice * 100).toInt(),
       description: 'Onze Order',
       metadata: {'orderId': '1', 'customer': 'customer'},
+      applePay: ApplePayConfig(merchantId: '1', label: 'Onze', manual: false),
       creditCard: CreditCardConfig(saveCard: true, manual: false),
     );
     return paymentConfig;
