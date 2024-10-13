@@ -21,8 +21,6 @@ void sendNotification({required String externalKey}) async {
   );
 
   if (response.statusCode == 200) {
-    log('Notification sent successfully!');
   } else {
-    log('Failed to send notification: ${response.body}');
   }
 }

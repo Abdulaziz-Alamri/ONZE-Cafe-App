@@ -19,7 +19,6 @@ class EmployeeScreen extends StatefulWidget {
 class _EmployeeScreenState extends State<EmployeeScreen> {
   @override
   void initState() {
-    log('${locator.get<DataLayer>().orders}');
     super.initState();
   }
 
@@ -77,8 +76,8 @@ class _EmployeeScreenState extends State<EmployeeScreen> {
                     leading: const Icon(Icons.logout, color: Colors.black),
                     title: const Text('Log Out',
                         style: TextStyle(color: Colors.black)),
-                    onTap: () {
-                      locator.get<DataLayer>().logout();
+                    onTap: () async{
+                      await locator.get<DataLayer>().logout();
                       Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
@@ -177,7 +176,6 @@ class _EmployeeScreenState extends State<EmployeeScreen> {
                         return const Center(child: CircularProgressIndicator());
                       }
                       if (state is SuccessfullLoadState) {
-                        log('${locator.get<DataLayer>().orders}');
                         return Column(
                           children: [
                             ...List.generate(state.orders.length, (index) {

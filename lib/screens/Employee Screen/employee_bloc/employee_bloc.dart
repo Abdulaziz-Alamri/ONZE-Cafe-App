@@ -41,12 +41,10 @@ class EmployeeBloc extends Bloc<EmployeeEvent, EmployeeState> {
 
             final newItem = response;
 
-            log('Full record: $newItem');
             await Future.delayed(const Duration(seconds: 1));
 
             add(LoadNewOrderEvent(order: newItem!));
           } else {
-            log('Empty newRecord received.');
           }
         },
       )

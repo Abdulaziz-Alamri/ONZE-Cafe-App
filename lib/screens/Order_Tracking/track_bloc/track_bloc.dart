@@ -34,7 +34,6 @@ class TrackBloc extends Bloc<TrackEvent, TrackState> {
   }
 
   void initializeListener() async {
-    log('Initializing channel for order updates...');
     add(CheckOrderStatusEvent());
     channel = supabase
         .channel('public:orders')
@@ -43,17 +42,14 @@ class TrackBloc extends Bloc<TrackEvent, TrackState> {
           schema: 'public',
           table: 'orders',
           callback: (payload) {
-            log('Change detected: ${payload.toString()}');
             final newStatus = payload.newRecord;
             if (newStatus['status'] == 'complete') {
-              log('Order marked as complete. Emitting ReadyEvent...');
               add(ReadyEvent());
             }
           },
         )
         .subscribe();
 
-    log('Channel initialization complete.');
   }
 
   @override
@@ -78,11 +74,8 @@ class TrackBloc extends Bloc<TrackEvent, TrackState> {
         .select('status')
         .eq('user_id', supabase.auth.currentUser!.id);
 
-    log('${status[0]['status']}');
-
     if (status[0]['status'] == 'complete') {
       emit(CheckOrderStatusState());
-      log('status is complete');
       add(ReadyEvent());
     }
   }

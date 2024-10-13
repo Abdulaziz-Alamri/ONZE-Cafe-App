@@ -26,12 +26,14 @@ class DataLayer {
     fetchOrder();
   }
 
-  saveAuth({required String token, required Map<String, dynamic> user}) async {
-    await box.write('auth', token);
-    await box.write('user', user);
+  saveAuth(
+      {required String userToken,
+      required Map<String, dynamic> currentUser}) async {
+    token = userToken;
+    user = UserModel.fromJson(currentUser);
+    await box.write('auth', userToken);
+    await box.write('user', currentUser);
     await box.write('external_key', externalKey);
-    await loadData();
-    await fetchOrder();
   }
 
   loggedIn() {
@@ -48,10 +50,11 @@ class DataLayer {
   }
 
   loadData() async {
+    log('${box.hasData('auth')}');
     if (box.hasData('auth')) {
       token = box.read('auth');
     }
-
+    log('${box.hasData('user')}');
     if (box.hasData('user')) {
       user = UserModel.fromJson(Map<String, dynamic>.from(box.read('user')));
       if (user!.role == 'employee') {
@@ -65,7 +68,6 @@ class DataLayer {
 
   fetchOrder() async {
     if (user != null) {
-      log('user ! null');
       final response = await supabase
           .from('orders')
           .select()
@@ -73,7 +75,6 @@ class DataLayer {
           .maybeSingle();
 
       if (response == null) {
-        log('response = null');
         final insertResponse = await supabase
             .from('orders')
             .insert({
@@ -88,8 +89,6 @@ class DataLayer {
         }
         order = OrderModel.fromJson(insertResponse);
       } else {
-        log('response ! null');
-
         await box.write('order', response);
         order = OrderModel.fromJson(response);
       }

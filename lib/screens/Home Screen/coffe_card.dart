@@ -130,7 +130,6 @@ class CoffeeCard extends StatelessWidget {
                           orderId: locator.get<DataLayer>().order!.orderId,
                         ),
                       );
-                  log('Added item to cart: $name');
                   bloc.add(UpdateCartCountEvent(
                       count: locator.get<DataLayer>().cart.items.length,
                       itemType: itemType));

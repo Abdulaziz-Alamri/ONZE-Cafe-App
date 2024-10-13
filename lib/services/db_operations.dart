@@ -41,7 +41,7 @@ Future login({required String email, required String password}) async {
         await locator.get<DataLayer>().getUserByEmail(email: email);
     await locator
         .get<DataLayer>()
-        .saveAuth(token: authRes.session!.accessToken, user: user);
+        .saveAuth(userToken: authRes.session!.accessToken, currentUser: user);
     OneSignal.login(locator.get<DataLayer>().externalKey!);
     await supabase
         .from('app_user')
@@ -123,8 +123,7 @@ saveOrder({required double totalPrice, required int orderId}) async {
   }
   await supabase
       .from('orders')
-      .update({'total_price': totalPrice})
-      .eq('order_id', orderId);
+      .update({'total_price': totalPrice}).eq('order_id', orderId);
 }
 
 Future<List<Map<String, dynamic>>> fetchAllOrders() async {
@@ -189,7 +188,6 @@ Future<void> markItemAsComplete(
       await supabase.from('order_item').delete().eq('order_id', orderId);
     }
   } catch (error) {
-    log('Error marking item as ready: $error');
     return Future.error(error);
   }
 }
@@ -219,7 +217,6 @@ Future<void> cancelOrderItem(
       await supabase.from('order_item').delete().eq('order_id', orderId);
     }
   } catch (error) {
-    log('Error Cancelling item: $error');
     return Future.error(error);
   }
 }
